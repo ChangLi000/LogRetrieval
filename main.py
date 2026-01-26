@@ -12,9 +12,9 @@ TEST_QUERY_1 = "张三2025年10月1日登录了几次邮件？"
 TEST_QUERY_2 = "IP是203.96.238.136在哪些账号上使用过？"
 TEST_QUERY_3 = "IP是203.96.238.136的子网IP在哪些账号上使用过？"
 
-api_key = os.environ.get("OPENAI_API_KEY", "bd4e0cd0cd0b49e4ca7ad1767baadf3a09cbab24f7aa6a9a8486cd7e3b9d9eaf")
-model_name = os.environ.get("OPENAI_MODEL_NAME", "gpt-3.5-turbo")
-endpoint = os.environ.get("OPENAI_ENDPOINT", "https://api.openai.com/v1/chat/completions")
+api_key = os.environ.get("OPENAI_API_KEY", "")
+model_name = os.environ.get("OPENAI_MODEL_NAME", "")
+endpoint = os.environ.get("OPENAI_ENDPOINT", "")
 llm = CustomLLM(api_key=api_key, model=model_name, endpoint=endpoint, temperature=0.0, top_p=1.0)  
 
 def main():
@@ -30,8 +30,8 @@ def main():
 
     agent = QueryRewriterAgent(llm=llm)
     rewrite_task = QueryRewriteTask(
-        user_question=TEST_QUERY_1,
-        extra_information=result1,
+        user_question=TEST_QUERY_3,
+        extra_information=result3,
         agent=agent  # Writer leads, but can delegate research to researcher
     )
     crew = Crew(
