@@ -28,3 +28,23 @@ class QueryRewriteTask(Task):
         kwargs.setdefault("expected_output", "A structured query specification")
         kwargs.setdefault("agent", agent)
         super().__init__(*args, **kwargs)
+
+
+
+class DataRetrievalTask(Task):
+    def __init__(self, *args, user_question="", extra_information="", agent=None, **kwargs):
+        # 先格式化描述字符串
+        description = """Execute the retrieval using appropriate log retrieval tools to retrieve the requested log data.
+            Input:
+            1. User Question:
+            {user_question}
+            2. Extra Information:
+            {extra_information}.""".format(
+                user_question=user_question, 
+                extra_information=extra_information
+            )
+        
+        kwargs.setdefault("description", description)
+        kwargs.setdefault("expected_output", "raw log data")
+        kwargs.setdefault("agent", agent)
+        super().__init__(*args, **kwargs)
