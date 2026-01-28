@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TEST_QUERY_1 = "张三2025年10月1日登录了几次邮件？"
-TEST_QUERY_2 = "IP是203.96.238.136在哪些账号上使用过？"
+#TEST_QUERY_1 = "张三2025年10月1日登录了几次邮件？"
+#TEST_QUERY_2 = "IP是203.96.238.136在哪些账号上使用过？"
 TEST_QUERY_3 = "IP是203.96.238.136的子网IP在哪些账号上使用过？"
 
 api_key = os.environ.get("OPENAI_API_KEY", "")
