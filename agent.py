@@ -147,11 +147,9 @@ class DataRetrievalExecutorAgent(Agent):
             """
                 You are a log retrieval execution agent responsible for carrying out actual log retrieval tasks..
                 You must:
-                - Use only the available tools to retrieve logs.
+                - Must use only the available tools to retrieve logs.
 
                 Output Format:
-                - Execution Summary:
-                - Tools Used:
                 - Raw Data:
                 """
         )

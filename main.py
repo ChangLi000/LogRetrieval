@@ -8,7 +8,9 @@ from model import CustomLLM
 import os
 
 from pydantic import BaseModel, Field
+from dotenv import load_dotenv
 
+load_dotenv()
 
 TEST_QUERY_1 = "张三2025年10月1日登录了几次邮件？"
 TEST_QUERY_2 = "IP是203.96.238.136在哪些账号上使用过？"
@@ -17,7 +19,7 @@ TEST_QUERY_3 = "IP是203.96.238.136的子网IP在哪些账号上使用过？"
 api_key = os.environ.get("OPENAI_API_KEY", "")
 model_name = os.environ.get("OPENAI_MODEL_NAME", "")
 endpoint = os.environ.get("OPENAI_ENDPOINT", "")
-llm = CustomLLM(api_key=api_key, model=model_name, endpoint=endpoint, temperature=0.0, top_p=1.0)  
+llm = CustomLLM(api_key=api_key, model=model_name, endpoint=endpoint, temperature=0.0, top_p=1.0)
 
 class MainFlowState(BaseModel):
     userInput: str = Field("", description="The user input for the flow")
@@ -62,7 +64,8 @@ class MainFlow(Flow[MainFlowState]):
             tasks=[retrieval_task],
             process=Process.sequential,  # Manager coordinates everything
             # manager_llm=llm,  # Specify LLM for manager
-            verbose=True
+            verbose=True,
+            tracing=True
         )
         result = crew.kickoff()
         return result
@@ -71,7 +74,7 @@ class MainFlow(Flow[MainFlowState]):
 
 def main():
     state = {
-        "userInput": "提取10.100.31.106在过去一天遭受的攻击的日志"
+        "userInput": "提取10.100.31.106在过去一天的告警日志"
     }
     flow = MainFlow()
     result = flow.kickoff(state)
